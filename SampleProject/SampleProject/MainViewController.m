@@ -85,7 +85,7 @@
 #pragma mark ABCellMenuViewDelegate Methods
 
 - (void)cellMenuViewEditBtnTapped:(ABCellMenuView *)menuView {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
                                                     message:[NSString stringWithFormat:@"Edit button pressed at position %@", @(menuView.indexPath.row)]
                                                    delegate:nil
                                           cancelButtonTitle:@"Ok"

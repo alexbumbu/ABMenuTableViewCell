@@ -14,7 +14,7 @@
 @interface ABCellMenuView : UIView
 
 @property (nonatomic, assign) id<ABCellMenuViewDelegate> delegate;
-@property (nonatomic, assign) NSIndexPath *indexPath;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 @end
 
