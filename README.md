@@ -34,6 +34,10 @@ You just need to replace UITableViewCell with ABMenuTableViewCell and assign you
 }
 ```
 
+## Compatibility
+
+* iOS 7 and iOS 8
+
 ## Credits
 
 ABMenuTableViewCell was created by [Alex Bumbu](https://github.com/alexbumbu).
