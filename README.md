@@ -33,3 +33,12 @@ You just need to replace UITableViewCell with ABMenuTableViewCell and assign you
     return cell;
 }
 ```
+
+## Credits
+
+ABMenuTableViewCell was created by [Alex Bumbu](https://github.com/alexbumbu).
+
+## License
+
+ABMenuTableViewCell is available under the MIT license. See the LICENSE file for more info.
+For usage without attribution contact [Alex Bumbu](mailto:alex.bumbu@gmail.com).
