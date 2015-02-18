@@ -75,6 +75,13 @@
 }
 
 
+#pragma mark UITableViewDelegate Methods
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
 #pragma mark ABCellMenuViewDelegate Methods
 
 - (void)cellMenuViewEditBtnTapped:(ABCellMenuView *)menuView {
