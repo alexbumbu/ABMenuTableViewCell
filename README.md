@@ -3,9 +3,11 @@
 Solution for using your own custom view as a menu in an UITableView’s “swipe to delete”-menu gesture.
 
 **Example 1:**
+
 ![Screenshot](https://github.com/alexbumbu/ABMenuTableViewCell/blob/master/sample_1.png?raw=true)
 
 **Example 2:**
+
 ![Screenshot](https://github.com/alexbumbu/ABMenuTableViewCell/blob/master/sample_2.png?raw=true)
 
 ## Integration
