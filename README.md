@@ -12,7 +12,8 @@ Solution for using your own custom view as a menu in an UITableView’s “swipe
 
 ## Integration
 
-You just need to replace UITableViewCell with ABMenuTableViewCell and assign your custom menu view to rightMenuView property and you're ready to go! You can take a look at the following snippet for details.
+* Install via cocoapods (just add ```pod 'ABMenuTableViewCell'``` to your Podfile), or download sources, copy ABMenuTableViewCell folder to your project folder and add it to your project.  
+* To use you just need to replace UITableViewCell with ABMenuTableViewCell and assign your custom menu view to rightMenuView property and you're ready to go! You can take a look at the following snippet for details.
 
 ```objective-c
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
