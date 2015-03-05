@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DDD610021AA8E88400B7A9F0 /* DataSource.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDD610011AA8E88400B7A9F0 /* DataSource.plist */; };
 		DDED6A831A93ACA900DBE0F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDED6A821A93ACA900DBE0F0 /* main.m */; };
 		DDED6A861A93ACA900DBE0F0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DDED6A851A93ACA900DBE0F0 /* AppDelegate.m */; };
 		DDED6A8E1A93ACA900DBE0F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDED6A8D1A93ACA900DBE0F0 /* Images.xcassets */; };
 		DDED6A911A93ACA900DBE0F0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDED6A8F1A93ACA900DBE0F0 /* LaunchScreen.xib */; };
 		DDED6A9D1A93ACA900DBE0F0 /* SampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DDED6A9C1A93ACA900DBE0F0 /* SampleProjectTests.m */; };
 		DDED6AB11A93AD1A00DBE0F0 /* ABCellMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDED6AA71A93AD1A00DBE0F0 /* ABCellMenuView.m */; };
-		DDED6AB21A93AD1A00DBE0F0 /* ABCellMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDED6AA81A93AD1A00DBE0F0 /* ABCellMenuView.xib */; };
-		DDED6AB31A93AD1A00DBE0F0 /* ABCellMenuView2.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDED6AA91A93AD1A00DBE0F0 /* ABCellMenuView2.xib */; };
+		DDED6AB21A93AD1A00DBE0F0 /* ABCellMailStyleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDED6AA81A93AD1A00DBE0F0 /* ABCellMailStyleMenuView.xib */; };
+		DDED6AB31A93AD1A00DBE0F0 /* ABCellCustomStyleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDED6AA91A93AD1A00DBE0F0 /* ABCellCustomStyleMenuView.xib */; };
 		DDED6AB51A93AD1A00DBE0F0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDED6AAD1A93AD1A00DBE0F0 /* MainViewController.m */; };
 		DDED6AB61A93AD1A00DBE0F0 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDED6AAE1A93AD1A00DBE0F0 /* MainViewController.xib */; };
 		DDED6AB71A93AD1A00DBE0F0 /* UIView+XIB.m in Sources */ = {isa = PBXBuildFile; fileRef = DDED6AB01A93AD1A00DBE0F0 /* UIView+XIB.m */; };
@@ -32,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DDD610011AA8E88400B7A9F0 /* DataSource.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DataSource.plist; sourceTree = "<group>"; };
 		DDED6A7D1A93ACA900DBE0F0 /* SampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDED6A811A93ACA900DBE0F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDED6A821A93ACA900DBE0F0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -44,8 +46,8 @@
 		DDED6A9C1A93ACA900DBE0F0 /* SampleProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleProjectTests.m; sourceTree = "<group>"; };
 		DDED6AA61A93AD1A00DBE0F0 /* ABCellMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABCellMenuView.h; sourceTree = "<group>"; };
 		DDED6AA71A93AD1A00DBE0F0 /* ABCellMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABCellMenuView.m; sourceTree = "<group>"; };
-		DDED6AA81A93AD1A00DBE0F0 /* ABCellMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ABCellMenuView.xib; sourceTree = "<group>"; };
-		DDED6AA91A93AD1A00DBE0F0 /* ABCellMenuView2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ABCellMenuView2.xib; sourceTree = "<group>"; };
+		DDED6AA81A93AD1A00DBE0F0 /* ABCellMailStyleMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ABCellMailStyleMenuView.xib; sourceTree = "<group>"; };
+		DDED6AA91A93AD1A00DBE0F0 /* ABCellCustomStyleMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ABCellCustomStyleMenuView.xib; sourceTree = "<group>"; };
 		DDED6AAC1A93AD1A00DBE0F0 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		DDED6AAD1A93AD1A00DBE0F0 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		DDED6AAE1A93AD1A00DBE0F0 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			children = (
 				DDED6A811A93ACA900DBE0F0 /* Info.plist */,
 				DDED6A821A93ACA900DBE0F0 /* main.m */,
+				DDD610011AA8E88400B7A9F0 /* DataSource.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -149,8 +152,8 @@
 				DDED6AAE1A93AD1A00DBE0F0 /* MainViewController.xib */,
 				DDED6AA61A93AD1A00DBE0F0 /* ABCellMenuView.h */,
 				DDED6AA71A93AD1A00DBE0F0 /* ABCellMenuView.m */,
-				DDED6AA81A93AD1A00DBE0F0 /* ABCellMenuView.xib */,
-				DDED6AA91A93AD1A00DBE0F0 /* ABCellMenuView2.xib */,
+				DDED6AA81A93AD1A00DBE0F0 /* ABCellMailStyleMenuView.xib */,
+				DDED6AA91A93AD1A00DBE0F0 /* ABCellCustomStyleMenuView.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -246,10 +249,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDED6A911A93ACA900DBE0F0 /* LaunchScreen.xib in Resources */,
-				DDED6AB31A93AD1A00DBE0F0 /* ABCellMenuView2.xib in Resources */,
+				DDED6AB31A93AD1A00DBE0F0 /* ABCellCustomStyleMenuView.xib in Resources */,
 				DDED6AB61A93AD1A00DBE0F0 /* MainViewController.xib in Resources */,
-				DDED6AB21A93AD1A00DBE0F0 /* ABCellMenuView.xib in Resources */,
+				DDED6AB21A93AD1A00DBE0F0 /* ABCellMailStyleMenuView.xib in Resources */,
 				DDED6A8E1A93ACA900DBE0F0 /* Images.xcassets in Resources */,
+				DDD610021AA8E88400B7A9F0 /* DataSource.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
