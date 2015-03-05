@@ -10,7 +10,8 @@
 
 @implementation ABCellMenuView {
     IBOutlet UIButton *deleteButton;
-    IBOutlet UIButton *editBtn;
+    IBOutlet UIButton *flagButton;
+    IBOutlet UIButton *moreBtn;
 }
 
 - (void)awakeFromNib {
@@ -25,9 +26,14 @@
         [_delegate cellMenuViewDeleteBtnTapped:self];
 }
 
-- (IBAction)editBtnPressed:(id)sender {
-    if (_delegate && [_delegate respondsToSelector:@selector(cellMenuViewEditBtnTapped:)])
-        [_delegate cellMenuViewEditBtnTapped:self];
+- (IBAction)moreBtnPressed:(id)sender {
+    if (_delegate && [_delegate respondsToSelector:@selector(cellMenuViewMoreBtnTapped:)])
+        [_delegate cellMenuViewMoreBtnTapped:self];
+}
+
+- (IBAction)flagBtnPressed:(id)sender {
+    if (_delegate && [_delegate respondsToSelector:@selector(cellMenuViewFlagBtnTapped:)])
+        [_delegate cellMenuViewFlagBtnTapped:self];
 }
 
 @end

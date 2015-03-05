@@ -22,7 +22,8 @@
 @protocol ABCellMenuViewDelegate <NSObject>
 
 @optional
-- (void)cellMenuViewEditBtnTapped:(ABCellMenuView *)menuView;
+- (void)cellMenuViewMoreBtnTapped:(ABCellMenuView *)menuView;
+- (void)cellMenuViewFlagBtnTapped:(ABCellMenuView *)menuView;
 - (void)cellMenuViewDeleteBtnTapped:(ABCellMenuView *)menuView;
 
 @end
