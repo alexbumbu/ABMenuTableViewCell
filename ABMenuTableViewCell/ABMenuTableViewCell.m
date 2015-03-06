@@ -13,6 +13,14 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
     ABMenuUpdateHideAction = -1
 };
 
+
+@interface ABMenuTableViewCell ()
+
+@property (nonatomic, assign) UITableView *parentTableView;
+
+@end
+
+
 @implementation ABMenuTableViewCell {
     CGRect _rightMenuViewInitialFrame;
     UIPanGestureRecognizer *_swipeGesture;
@@ -40,6 +48,19 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
     }
 }
 
+- (void)didMoveToSuperview {
+    [super didMoveToSuperview];
+    
+    // find out the table view
+    UIView *view = self.superview;
+    
+    while (view && [view isKindOfClass:[UITableView class]] == NO) {
+        view = view.superview;
+    }
+    
+    self.parentTableView = (UITableView *)view;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     // Configure the view for the selected state
     if (CGRectGetWidth(_rightMenuView.frame) > 0) {
@@ -51,15 +72,18 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    // check if the menu view is visible
-    if (CGRectGetWidth(_rightMenuView.frame) > 0)
+    if (CGRectGetWidth(_rightMenuView.frame) > 0) {
+        [self updateMenuView:ABMenuUpdateHideAction animated:YES];
         return;
+    }
     
     [super setHighlighted:highlighted animated:animated];
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    self.rightMenuView = nil;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {

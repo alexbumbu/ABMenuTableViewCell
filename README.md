@@ -1,18 +1,28 @@
 # ABMenuTableViewCell
 
-Solution for using your own custom view as a menu in an UITableView’s “swipe to delete”-menu gesture.
+Highly customizable, yet simple to use, solution for UITableViewCell right menu, shown by 'swipe to delete' gesture.
 
-**Example 1:**
+**Mail App Styled Menu - show & hide example:**
 
-![Screenshot](https://github.com/alexbumbu/ABMenuTableViewCell/blob/master/sample_1.png?raw=true)
+Without any extra work needed, showing the right menu view works with default swipe-to-delete gesture. Also, hiding the menu is done using known gestures like tapping or swiping back. 
 
-**Example 2:**
+![Screenshot](https://github.com/alexbumbu/ABMenuTableViewCell/blob/master/sample_mail_hide.gif)
 
-![Screenshot](https://github.com/alexbumbu/ABMenuTableViewCell/blob/master/sample_2.png?raw=true)
+**Mail App Styled Menu - delete item example:**
+
+Deleting rows is as simple as the default implementation. 
+
+![Screenshot](https://github.com/alexbumbu/ABMenuTableViewCell/blob/master/sample_mail_delete.gif)
+
+**Custom Styled Menu - show, hide & delete example**
+
+The advantage of using custom menus is that you're not stuck with Apple style buttons and you can easily integrate your own design.
+
+![Screenshot](https://github.com/alexbumbu/ABMenuTableViewCell/blob/master/sample_custom_delete.gif)
 
 ## Integration
 
-* Install via cocoapods (just add ```pod 'ABMenuTableViewCell'``` to your Podfile), or download sources, copy ABMenuTableViewCell folder to your project folder and add it to your project.  
+* Install via cocoapods (just add ```pod 'ABMenuTableViewCell', '~> 1.0'``` to your Podfile), or clone this repository and drag the content of ABMenuTableViewCell folder to your project.  
 * To use you just need to replace UITableViewCell with ABMenuTableViewCell and assign your custom menu view to rightMenuView property and you're ready to go! You can take a look at the following snippet for details.
 
 ```objective-c
