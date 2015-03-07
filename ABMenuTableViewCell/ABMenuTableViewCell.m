@@ -74,7 +74,6 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     if (CGRectGetWidth(_rightMenuView.frame) > 0) {
         [self updateMenuView:ABMenuUpdateHideAction animated:YES];
-        return;
     }
     
     [super setHighlighted:highlighted animated:animated];
