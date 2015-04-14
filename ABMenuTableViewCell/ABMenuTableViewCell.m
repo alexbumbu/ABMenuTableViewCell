@@ -137,11 +137,11 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
 
 #pragma mark Private Methods
 
-- (void)updateMenuView:(ABMenuUpdateAction)direction animated:(BOOL)animated {
+- (void)updateMenuView:(ABMenuUpdateAction)action animated:(BOOL)animated {
     CGRect menuNewFrame;
     CGFloat initialWidth = CGRectGetWidth(_rightMenuViewInitialFrame);
     
-    switch (direction) {
+    switch (action) {
         case ABMenuUpdateShowAction:
             menuNewFrame = CGRectMake(CGRectGetWidth(self.contentView.frame) - initialWidth, .0, initialWidth, CGRectGetHeight(self.contentView.frame));
             break;
@@ -153,7 +153,7 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
             break;
     }
     
-    if (CGRectEqualToRect(menuNewFrame, _rightMenuView.frame))
+    if (CGRectGetWidth(menuNewFrame) == CGRectGetWidth(_rightMenuView.frame))
         return;
     
     // animate showing menuView
@@ -168,11 +168,11 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
         
         [UIView animateWithDuration:(animated? .6 : .0)
                               delay:.0
-             usingSpringWithDamping:(direction > 0) ? .6 : 1.0
-              initialSpringVelocity:(direction > 0) ? 1.0 : .0
+             usingSpringWithDamping:(action > 0) ? .6 : 1.0
+              initialSpringVelocity:(action > 0) ? 1.0 : .0
                             options:0
                          animations:^{
-                             subview.frame = CGRectMake(CGRectGetMinX(subview.frame) - direction*initialWidth, CGRectGetMinY(subview.frame), CGRectGetWidth(subview.frame), CGRectGetHeight(subview.frame));
+                             subview.frame = CGRectMake(CGRectGetMinX(subview.frame) - action*initialWidth, CGRectGetMinY(subview.frame), CGRectGetWidth(subview.frame), CGRectGetHeight(subview.frame));
                          }
                          completion:nil];
     }
