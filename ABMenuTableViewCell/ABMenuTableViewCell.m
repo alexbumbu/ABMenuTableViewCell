@@ -29,12 +29,21 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _swipeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGesture:)];
-        _swipeGesture.delegate = self;
-        [self addGestureRecognizer:_swipeGesture];
+        [self commonInit]; 
     }
     
     return self;
+}
+
+- (void) awakeFromNib {
+    [super awakeFromNib];
+    [self commonInit];
+}
+
+- (void) commonInit {
+    _swipeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGesture:)];
+    _swipeGesture.delegate = self;
+    [self addGestureRecognizer:_swipeGesture];
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
