@@ -40,12 +40,6 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
     [self commonInit];
 }
 
-- (void) commonInit {
-    _swipeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGesture:)];
-    _swipeGesture.delegate = self;
-    [self addGestureRecognizer:_swipeGesture];
-}
-
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
     
@@ -94,6 +88,22 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
     self.rightMenuView = nil;
 }
 
+- (void)setRightMenuView:(UIView *)rightMenuView {
+    if (_rightMenuView != rightMenuView) {
+        // clean
+        [_rightMenuView removeFromSuperview];
+        
+        // add new
+        _rightMenuView = rightMenuView;
+        _rightMenuViewInitialFrame = _rightMenuView.frame;
+        _rightMenuView.frame = CGRectMake(CGRectGetWidth(self.contentView.frame), .0, .0, CGRectGetHeight(self.contentView.frame));
+        [self.contentView addSubview:_rightMenuView];
+    }
+}
+
+
+#pragma mark UIGestureRecognizerDelegate Methods
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return NO;
 }
@@ -106,19 +116,6 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
     }
     
     return YES;
-}
-
-- (void)setRightMenuView:(UIView *)rightMenuView {
-    if (_rightMenuView != rightMenuView) {
-        // clean
-        [_rightMenuView removeFromSuperview];
-        
-        // add new
-        _rightMenuView = rightMenuView;
-        _rightMenuViewInitialFrame = _rightMenuView.frame;
-        _rightMenuView.frame = CGRectMake(CGRectGetWidth(self.contentView.frame), .0, .0, CGRectGetHeight(self.contentView.frame));
-        [self.contentView addSubview:_rightMenuView];
-    }
 }
 
 
@@ -145,6 +142,12 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
 
 
 #pragma mark Private Methods
+
+- (void) commonInit {
+    _swipeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGesture:)];
+    _swipeGesture.delegate = self;
+    [self addGestureRecognizer:_swipeGesture];
+}
 
 - (void)updateMenuView:(ABMenuUpdateAction)action animated:(BOOL)animated {
     CGRect menuNewFrame;
