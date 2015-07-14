@@ -1,0 +1,13 @@
+PODS:
+  - ABDataSourceController (1.0.1)
+  - ABMenuTableViewCell (1.0.3)
+
+DEPENDENCIES:
+  - ABDataSourceController (~> 1.0)
+  - ABMenuTableViewCell (~> 1.0)
+
+SPEC CHECKSUMS:
+  ABDataSourceController: eeea6521b0591c63715bd93db1586c7eecfaf790
+  ABMenuTableViewCell: 81c6c5cdf7ac1e6c38eeebb44110cb8cd9c25eb2
+
+COCOAPODS: 0.36.3
