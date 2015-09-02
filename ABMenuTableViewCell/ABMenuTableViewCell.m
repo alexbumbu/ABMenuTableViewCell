@@ -8,15 +8,19 @@
 
 #import "ABMenuTableViewCell.h"
 
+
 typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
     ABMenuUpdateShowAction = 1,
     ABMenuUpdateHideAction = -1
 };
 
 
+static CGFloat kAnimationDuration = .6;
+
 @interface ABMenuTableViewCell ()
 
 @property (nonatomic, assign) UITableView *parentTableView;
+@property (nonatomic, assign) BOOL ongoingTransition;
 
 @end
 
@@ -75,6 +79,11 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    // workaround - handle the case with setHighlighted:animated: triggered on iPAD due
+    //to stopping default gestures to run simultaneously with _swipeGesture
+    if (self.ongoingTransition)
+        return;
+    
     if (CGRectGetWidth(_rightMenuView.frame) > 0) {
         [self updateMenuView:ABMenuUpdateHideAction animated:YES];
     }
@@ -112,7 +121,11 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
     if (gestureRecognizer == _swipeGesture) {
         // enable only horizontal gesture
         CGPoint velocity = [(UIPanGestureRecognizer*)gestureRecognizer velocityInView:self];
-        return fabs(velocity.x) > fabs(velocity.y);
+        BOOL shouldBegin = fabs(velocity.x) > fabs(velocity.y);
+        
+        self.ongoingTransition = YES;
+        
+        return shouldBegin;
     }
     
     return YES;
@@ -121,30 +134,48 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
 
 #pragma mark Actions
 
-- (void)swipeGesture:(UIPanGestureRecognizer *)gesture {
-    if (gesture.state == UIGestureRecognizerStateBegan) {
-        NSInteger direction;
-        
-        // find swipe direction
-        CGPoint velocity = [gesture velocityInView:self];
-        if (velocity.x > 0) {
-            // towards right - hide menu view
-            direction = ABMenuUpdateHideAction;
+- (void)handleSwipeGesture:(UIPanGestureRecognizer *)gesture {
+    switch (gesture.state) {
+        case UIGestureRecognizerStateBegan: {
+            NSInteger direction;
+            
+            // find swipe direction
+            CGPoint velocity = [gesture velocityInView:self];
+            if (velocity.x > 0) {
+                // towards right - hide menu view
+                direction = ABMenuUpdateHideAction;
+            }
+            else {
+                // towards left - show menu view
+                direction = ABMenuUpdateShowAction;
+            }
+            
+            [self updateMenuView:direction animated:YES];
+            
+            break;
         }
-        else {
-            // towards left - show menu view
-            direction = ABMenuUpdateShowAction;
+        case UIGestureRecognizerStateChanged: {
+            break;
         }
-        
-        [self updateMenuView:direction animated:YES];
+        case UIGestureRecognizerStateCancelled: {
+            break;
+        }
+        case UIGestureRecognizerStateEnded: {
+            self.ongoingTransition = NO;
+            
+            break;
+        }
+            
+        default:
+            break;
     }
 }
 
 
 #pragma mark Private Methods
 
-- (void) commonInit {
-    _swipeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGesture:)];
+- (void)commonInit {
+    _swipeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
     _swipeGesture.delegate = self;
     [self addGestureRecognizer:_swipeGesture];
 }
@@ -178,9 +209,9 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
         if (subview == _rightMenuView)
             continue;
         
-        [UIView animateWithDuration:(animated? .6 : .0)
+        [UIView animateWithDuration:(animated? kAnimationDuration : .0)
                               delay:.0
-             usingSpringWithDamping:(action > 0) ? .6 : 1.0
+             usingSpringWithDamping:(action > 0) ? kAnimationDuration : 1.0
               initialSpringVelocity:(action > 0) ? 1.0 : .0
                             options:0
                          animations:^{

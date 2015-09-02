@@ -59,9 +59,13 @@
     menuView.delegate = self;
     menuView.indexPath = indexPath;
     cell.rightMenuView = menuView;
-    
+        
     return cell;
 }
+//
+//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return YES;
+//}
 
 
 #pragma mark UITableViewDelegate Methods
