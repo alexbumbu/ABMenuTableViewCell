@@ -1,0 +1,10 @@
+PODS:
+  - ABDataSourceController (1.0.1)
+
+DEPENDENCIES:
+  - ABDataSourceController (~> 1.0)
+
+SPEC CHECKSUMS:
+  ABDataSourceController: eeea6521b0591c63715bd93db1586c7eecfaf790
+
+COCOAPODS: 0.36.3
