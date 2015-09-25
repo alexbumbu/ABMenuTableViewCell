@@ -14,13 +14,26 @@ typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
     ABMenuUpdateHideAction = -1
 };
 
+typedef NS_ENUM(NSInteger, ABMenuState) {
+    ABMenuStateHidden = 0,
+    ABMenuStateShowing,
+    ABMenuStateShown,
+    ABMenuStateHiding
+};
 
-static CGFloat kAnimationDuration = .6;
+
+static CGFloat kSpringAnimationDuration = .6;
+static CGFloat kAnimationDuration = .26;
 
 @interface ABMenuTableViewCell ()
 
 @property (nonatomic, assign) UITableView *parentTableView;
-@property (nonatomic, assign) BOOL ongoingTransition;
+
+@property (nonatomic, assign) ABMenuState menuState;
+@property (nonatomic, assign) CGPoint lastGestureLocation;
+@property (nonatomic, assign) CGPoint startGestureLocation;
+@property (nonatomic, assign) CGFloat prevDistance;
+@property (nonatomic, assign) BOOL ongoingSelection;
 
 @end
 
@@ -69,24 +82,33 @@ static CGFloat kAnimationDuration = .6;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    // Configure the view for the selected state
-    if (CGRectGetWidth(_rightMenuView.frame) > 0) {
+    NSLog(@"Selected: %d", selected);
+    
+    if (selected && (self.menuState == ABMenuStateShowing || self.menuState == ABMenuStateShown)) {
         [self updateMenuView:ABMenuUpdateHideAction animated:YES];
+        
         return;
     }
     
     [super setSelected:selected animated:animated];
+    
+    if (!selected) {
+        // make sure highlight animation completes
+#warning Workaround: 0.45s value is obtained through trial & error
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.45 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.ongoingSelection = NO;
+        });
+    }
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    // workaround - handle the case with setHighlighted:animated: triggered on iPAD due
-    //to stopping default gestures to run simultaneously with _swipeGesture
-    if (self.ongoingTransition)
+    NSLog(@"Highlighted: %d", highlighted);
+    
+    if (self.menuState == ABMenuStateShowing || self.menuState == ABMenuStateShown)
         return;
     
-    if (CGRectGetWidth(_rightMenuView.frame) > 0) {
-        [self updateMenuView:ABMenuUpdateHideAction animated:YES];
-    }
+    if (highlighted)
+        self.ongoingSelection = YES;
     
     [super setHighlighted:highlighted animated:animated];
 }
@@ -119,11 +141,12 @@ static CGFloat kAnimationDuration = .6;
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer == _swipeGesture) {
+        if (self.ongoingSelection)
+            return NO;
+        
         // enable only horizontal gesture
         CGPoint velocity = [(UIPanGestureRecognizer*)gestureRecognizer velocityInView:self];
         BOOL shouldBegin = fabs(velocity.x) > fabs(velocity.y);
-        
-        self.ongoingTransition = YES;
         
         return shouldBegin;
     }
@@ -135,33 +158,91 @@ static CGFloat kAnimationDuration = .6;
 #pragma mark Actions
 
 - (void)handleSwipeGesture:(UIPanGestureRecognizer *)gesture {
+    NSLog(@"--------------");
+    
+    CGFloat initialWidth = CGRectGetWidth(_rightMenuViewInitialFrame);
+    ABMenuUpdateAction direction = [self actionForGesture:gesture];
+    CGPoint gestureLocation = [gesture locationInView:self];
+    
     switch (gesture.state) {
         case UIGestureRecognizerStateBegan: {
-            NSInteger direction;
+            self.startGestureLocation = [gesture locationInView:self];
+            self.prevDistance = .0;
             
-            // find swipe direction
-            CGPoint velocity = [gesture velocityInView:self];
-            if (velocity.x > 0) {
-                // towards right - hide menu view
-                direction = ABMenuUpdateHideAction;
+            [self resetLastGestureLocation];
+            direction = [self actionForGesture:gesture];
+            
+            // update menu state
+            if (direction == ABMenuUpdateShowAction) {
+                self.menuState = ABMenuStateShowing;
             }
             else {
-                // towards left - show menu view
-                direction = ABMenuUpdateShowAction;
+                self.menuState = ABMenuStateHiding;
             }
             
-            [self updateMenuView:direction animated:YES];
+            NSLog(@"Menu state: %d", self.menuState);
+            NSLog(@"Begin: %@", NSStringFromCGPoint(self.startGestureLocation));
             
             break;
         }
         case UIGestureRecognizerStateChanged: {
+            NSLog(@"Menu state: %d", self.menuState);
+            
+            CGFloat totalDistance = self.startGestureLocation.x - gestureLocation.x;
+            
+            // handle out of bounds case considering menuState and direction
+            if (totalDistance <= .0) {
+                if (direction == ABMenuUpdateHideAction && self.menuState == ABMenuStateHidden)
+                    totalDistance = .0;
+                
+                self.startGestureLocation = [gesture locationInView:self];
+            }
+            
+            NSLog(@"Changed: %@ - %f", NSStringFromCGPoint(gestureLocation), totalDistance);
+
+            // update UI
+            [self updateMenuView:direction delta:fabs(totalDistance - self.prevDistance) animated:NO];
+            
+            self.prevDistance = totalDistance;
+            
             break;
         }
         case UIGestureRecognizerStateCancelled: {
             break;
         }
         case UIGestureRecognizerStateEnded: {
-            self.ongoingTransition = NO;
+            NSLog(@"Menu state: %d", self.menuState);
+            NSLog(@"End: %@", NSStringFromCGPoint(gestureLocation));
+            
+            // calculate deltaX considering menuState and direction
+            CGFloat deltaX = .0;
+            switch (self.menuState) {
+                case ABMenuStateShowing: {
+                    deltaX = (direction == ABMenuUpdateShowAction? initialWidth : 0) - self.prevDistance;
+                    break;
+                }
+                case ABMenuStateHiding: {
+                    deltaX = (direction == ABMenuUpdateShowAction? 0 : initialWidth) - self.prevDistance;
+                    break;
+                }
+                case ABMenuStateShown:
+                case ABMenuStateHidden:
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            // update UI
+            [self updateMenuView:direction delta:fabs(deltaX) animated:YES];
+            
+            // update menu state
+            if (direction == ABMenuUpdateShowAction) {
+                self.menuState = ABMenuStateShown;
+            }
+            else {
+                self.menuState = ABMenuStateHidden;
+            }
             
             break;
         }
@@ -169,56 +250,120 @@ static CGFloat kAnimationDuration = .6;
         default:
             break;
     }
+    
+    self.lastGestureLocation = gestureLocation;
 }
 
 
 #pragma mark Private Methods
 
 - (void)commonInit {
+    self.ongoingSelection = NO;
+    self.menuState = ABMenuStateHidden;
+    self.prevDistance = .0;
+    self.startGestureLocation = CGPointZero;
+    
+    [self resetLastGestureLocation];
+    
     _swipeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
     _swipeGesture.delegate = self;
     [self addGestureRecognizer:_swipeGesture];
 }
 
+- (void)resetLastGestureLocation {
+    if (self.menuState == ABMenuStateShown) {
+        self.lastGestureLocation = CGPointZero;
+    }
+    else if (self.menuState == ABMenuStateHidden){
+        self.lastGestureLocation = CGPointMake(CGRectGetWidth(self.frame), .0);
+    }
+}
+
 - (void)updateMenuView:(ABMenuUpdateAction)action animated:(BOOL)animated {
-    CGRect menuNewFrame;
     CGFloat initialWidth = CGRectGetWidth(_rightMenuViewInitialFrame);
     
-    switch (action) {
-        case ABMenuUpdateShowAction:
-            menuNewFrame = CGRectMake(CGRectGetWidth(self.contentView.frame) - initialWidth, .0, initialWidth, CGRectGetHeight(self.contentView.frame));
-            break;
-        case ABMenuUpdateHideAction:
-            menuNewFrame = CGRectMake(CGRectGetWidth(self.contentView.frame), .0, .0, CGRectGetHeight(self.contentView.frame));
-            break;
-            
-        default:
-            break;
+    [self updateMenuView:action delta:initialWidth animated:animated];
+    
+    // update menu state
+    if (action == ABMenuUpdateShowAction) {
+        self.menuState = ABMenuStateShown;
+    }
+    else {
+        self.menuState = ABMenuStateHidden;
+    }
+}
+
+- (ABMenuUpdateAction)actionForGesture:(UIPanGestureRecognizer *)gesture {
+    static ABMenuUpdateAction direction = 0;
+    CGPoint gestureLocation = [gesture locationInView:self];
+    
+    // find swipe direction
+    if (gestureLocation.x == self.lastGestureLocation.x) {
+        // do nothing
+    }
+    else if (gestureLocation.x < self.lastGestureLocation.x) {
+        // towards left - show menu view
+        direction = ABMenuUpdateShowAction;
+    }
+    else {
+        // towards right - hide menu view
+        direction = ABMenuUpdateHideAction;
     }
     
-    if (CGRectGetWidth(menuNewFrame) == CGRectGetWidth(_rightMenuView.frame))
-        return;
+    return direction;
+}
+
+- (void)updateMenuView:(ABMenuUpdateAction)action delta:(CGFloat)deltaX animated:(BOOL)animated {
+    CGFloat initialWidth = CGRectGetWidth(_rightMenuViewInitialFrame);
     
-    // animate showing menuView
-    [UIView animateWithDuration:(animated? .26 : .0)
-                     animations:^{
-                         _rightMenuView.frame = menuNewFrame;
-                     }];
+    NSLog(@"Raw DeltaX: %f", deltaX);
+
+    // adjust deltaX so it doesn't get out of bounds
+    CGFloat newWidth = CGRectGetWidth(_rightMenuView.frame) + action*deltaX;
+    CGFloat deltaOffset = initialWidth - newWidth;
+    NSLog(@"A: %f", deltaOffset);
     
+    if (newWidth < 0) {
+        deltaX += newWidth;
+    }
+    else if (deltaOffset < 0) {
+        deltaX += deltaOffset;
+    }
+    
+    // calculate new menu frame
+    CGRect menuNewFrame = CGRectMake(CGRectGetMinX(_rightMenuView.frame) - action*deltaX, .0,
+                                     CGRectGetWidth(_rightMenuView.frame) + action*deltaX, CGRectGetHeight(self.contentView.frame));
+    
+    NSLog(@"New Frame: %@", NSStringFromCGRect(menuNewFrame));
+    NSLog(@"DeltaX: %f, direction: %d", deltaX, action);
+    
+    // get subviews to update list
+    NSMutableArray *subviews = [NSMutableArray array];
     for (UIView *subview in self.contentView.subviews) {
         if (subview == _rightMenuView)
             continue;
         
-        [UIView animateWithDuration:(animated? kAnimationDuration : .0)
-                              delay:.0
-             usingSpringWithDamping:(action > 0) ? kAnimationDuration : 1.0
-              initialSpringVelocity:(action > 0) ? 1.0 : .0
-                            options:0
-                         animations:^{
-                             subview.frame = CGRectMake(CGRectGetMinX(subview.frame) - action*initialWidth, CGRectGetMinY(subview.frame), CGRectGetWidth(subview.frame), CGRectGetHeight(subview.frame));
-                         }
-                         completion:nil];
+        [subviews addObject:subview];
     }
+    
+    // animate updates
+    [UIView animateWithDuration:(animated? kAnimationDuration : .0)
+                     animations:^{
+                         _rightMenuView.frame = menuNewFrame;
+                     }];
+    
+    [UIView animateWithDuration:(animated? kSpringAnimationDuration : .0)
+                          delay:.0
+         usingSpringWithDamping:(action > 0) ? kSpringAnimationDuration : 1.0
+          initialSpringVelocity:(action > 0) ? 1.0 : .0
+                        options:0
+                     animations:^{
+                         for (UIView *subview in subviews) {
+                             subview.frame = CGRectMake(CGRectGetMinX(subview.frame) - action*deltaX, CGRectGetMinY(subview.frame),
+                                                        CGRectGetWidth(subview.frame), CGRectGetHeight(subview.frame));
+                         }
+                     }
+                     completion:nil];
 }
 
 @end
