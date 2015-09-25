@@ -145,6 +145,7 @@ static CGFloat kAnimationDuration = .26;
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer == _swipeGesture) {
+        // prevent swipeGesture before highlight animation completes
         if (self.ongoingSelection)
             return NO;
         
@@ -162,18 +163,18 @@ static CGFloat kAnimationDuration = .26;
 #pragma mark Actions
 
 - (void)handleSwipeGesture:(UIPanGestureRecognizer *)gesture {
-    NSLog(@"--------------");
-    
     CGFloat initialWidth = CGRectGetWidth(_rightMenuViewInitialFrame);
     ABMenuUpdateAction direction = [self actionForGesture:gesture];
     CGPoint gestureLocation = [gesture locationInView:self];
     
     switch (gesture.state) {
         case UIGestureRecognizerStateBegan: {
-            self.startGestureLocation = [gesture locationInView:self];
+            // reset values
             self.prevDistance = .0;
-            
+            self.startGestureLocation = [gesture locationInView:self];
             [self resetLastGestureLocation];
+            
+            // get new direction value after reseting gesture location values
             direction = [self actionForGesture:gesture];
             
             // update menu state
@@ -184,14 +185,10 @@ static CGFloat kAnimationDuration = .26;
                 self.menuState = ABMenuStateHiding;
             }
             
-            NSLog(@"Menu state: %d", self.menuState);
-            NSLog(@"Begin: %@", NSStringFromCGPoint(self.startGestureLocation));
-            
             break;
         }
         case UIGestureRecognizerStateChanged: {
-            NSLog(@"Menu state: %d", self.menuState);
-            
+            // get distance since gesture beginning
             CGFloat totalDistance = self.startGestureLocation.x - gestureLocation.x;
             
             // handle out of bounds case considering menuState and direction
@@ -202,9 +199,7 @@ static CGFloat kAnimationDuration = .26;
                 self.startGestureLocation = [gesture locationInView:self];
             }
             
-            NSLog(@"Changed: %@ - %f", NSStringFromCGPoint(gestureLocation), totalDistance);
-
-            // update UI
+            // update UI with distance since previous gesture state
             [self updateMenuView:direction delta:fabs(totalDistance - self.prevDistance) animated:NO];
             
             self.prevDistance = totalDistance;
@@ -215,9 +210,6 @@ static CGFloat kAnimationDuration = .26;
             break;
         }
         case UIGestureRecognizerStateEnded: {
-            NSLog(@"Menu state: %d", self.menuState);
-            NSLog(@"End: %@", NSStringFromCGPoint(gestureLocation));
-            
             // calculate deltaX considering menuState and direction
             CGFloat deltaX = .0;
             switch (self.menuState) {
@@ -301,7 +293,7 @@ static CGFloat kAnimationDuration = .26;
     static ABMenuUpdateAction direction = 0;
     CGPoint gestureLocation = [gesture locationInView:self];
     
-    // find swipe direction
+    // find swipe direction - not using velocityInView due to incorrect reporting when changing swipe direction
     if (gestureLocation.x == self.lastGestureLocation.x) {
         // do nothing
     }
@@ -320,12 +312,9 @@ static CGFloat kAnimationDuration = .26;
 - (void)updateMenuView:(ABMenuUpdateAction)action delta:(CGFloat)deltaX animated:(BOOL)animated {
     CGFloat initialWidth = CGRectGetWidth(_rightMenuViewInitialFrame);
     
-    NSLog(@"Raw DeltaX: %f", deltaX);
-
     // adjust deltaX so it doesn't get out of bounds
     CGFloat newWidth = CGRectGetWidth(_rightMenuView.frame) + action*deltaX;
     CGFloat deltaOffset = initialWidth - newWidth;
-    NSLog(@"A: %f", deltaOffset);
     
     if (newWidth < 0) {
         deltaX += newWidth;
@@ -338,10 +327,7 @@ static CGFloat kAnimationDuration = .26;
     CGRect menuNewFrame = CGRectMake(CGRectGetMinX(_rightMenuView.frame) - action*deltaX, .0,
                                      CGRectGetWidth(_rightMenuView.frame) + action*deltaX, CGRectGetHeight(self.contentView.frame));
     
-    NSLog(@"New Frame: %@", NSStringFromCGRect(menuNewFrame));
-    NSLog(@"DeltaX: %f, direction: %d", deltaX, action);
-    
-    // get subviews to update list
+    // get list of subviews to update
     NSMutableArray *subviews = [NSMutableArray array];
     for (UIView *subview in self.contentView.subviews) {
         if (subview == _rightMenuView)
