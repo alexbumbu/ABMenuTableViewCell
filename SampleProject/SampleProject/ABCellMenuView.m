@@ -11,7 +11,7 @@
 @implementation ABCellMenuView {
     IBOutlet UIButton *deleteButton;
     IBOutlet UIButton *flagButton;
-    IBOutlet UIButton *moreBtn;
+    IBOutlet UIButton *moreButton;
 }
 
 - (void)awakeFromNib {
