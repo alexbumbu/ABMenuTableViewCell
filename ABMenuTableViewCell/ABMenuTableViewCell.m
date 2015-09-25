@@ -82,8 +82,7 @@ static CGFloat kAnimationDuration = .26;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    NSLog(@"Selected: %d", selected);
-    
+    // hide menu if presented
     if (selected && (self.menuState == ABMenuStateShowing || self.menuState == ABMenuStateShown)) {
         [self updateMenuView:ABMenuUpdateHideAction animated:YES];
         
@@ -92,8 +91,8 @@ static CGFloat kAnimationDuration = .26;
     
     [super setSelected:selected animated:animated];
     
+    // prevent swipeGesture before highlight animation completes
     if (!selected) {
-        // make sure highlight animation completes
 #warning Workaround: 0.45s value is obtained through trial & error
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.45 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.ongoingSelection = NO;
@@ -102,8 +101,13 @@ static CGFloat kAnimationDuration = .26;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    NSLog(@"Highlighted: %d", highlighted);
+    // iPad special case - highlighting the cell is not prevented when starting swipeGesture
+    // fix by checking if swipeGesture is started
+    CGFloat gestureVelocity = [_swipeGesture velocityInView:self].x;
+    if (gestureVelocity)
+        return;
     
+    // prevent highlighting when menu is on screen
     if (self.menuState == ABMenuStateShowing || self.menuState == ABMenuStateShown)
         return;
     
