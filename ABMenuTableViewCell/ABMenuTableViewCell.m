@@ -337,9 +337,13 @@ static CGFloat kAnimationDuration = .26;
     }
     
     // animate updates
+    [self layoutIfNeeded];
+    
     [UIView animateWithDuration:(animated? kAnimationDuration : .0)
                      animations:^{
                          _rightMenuView.frame = menuNewFrame;
+                         
+                         [self layoutIfNeeded];
                      }];
     
     [UIView animateWithDuration:(animated? kSpringAnimationDuration : .0)
@@ -350,7 +354,7 @@ static CGFloat kAnimationDuration = .26;
                      animations:^{
                          for (UIView *subview in subviews) {
                              subview.frame = CGRectMake(CGRectGetMinX(subview.frame) - action*deltaX, CGRectGetMinY(subview.frame),
-                                                        CGRectGetWidth(subview.frame), CGRectGetHeight(subview.frame));
+                                                        CGRectGetWidth(subview.frame), CGRectGetHeight(subview.frame));                             
                          }
                      }
                      completion:nil];
