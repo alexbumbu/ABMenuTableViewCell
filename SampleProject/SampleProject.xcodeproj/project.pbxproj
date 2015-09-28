@@ -15,6 +15,7 @@
 		DD8B09121B9D6FAA007C8187 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD8B09111B9D6FAA007C8187 /* Images.xcassets */; };
 		DD8B09151B9D6FAA007C8187 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD8B09131B9D6FAA007C8187 /* LaunchScreen.xib */; };
 		DD8B09211B9D6FAA007C8187 /* SampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8B09201B9D6FAA007C8187 /* SampleProjectTests.m */; };
+		DD9B6EC61BB9A5490091629D /* DataSource.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD9B6EC51BB9A5490091629D /* DataSource.plist */; settings = {ASSET_TAGS = (); }; };
 		DDD78B021B9D732A009D779E /* UIView+XIB.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD78B011B9D732A009D779E /* UIView+XIB.m */; };
 		DDD78B091B9D757D009D779E /* ABCellCustomStyleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD78B031B9D757D009D779E /* ABCellCustomStyleMenuView.xib */; };
 		DDD78B0A1B9D757D009D779E /* ABCellMailStyleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD78B041B9D757D009D779E /* ABCellMailStyleMenuView.xib */; };
@@ -50,6 +51,7 @@
 		DD8B091A1B9D6FAA007C8187 /* SampleProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD8B091F1B9D6FAA007C8187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD8B09201B9D6FAA007C8187 /* SampleProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleProjectTests.m; sourceTree = "<group>"; };
+		DD9B6EC51BB9A5490091629D /* DataSource.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DataSource.plist; sourceTree = "<group>"; };
 		DDD78B001B9D732A009D779E /* UIView+XIB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XIB.h"; sourceTree = "<group>"; };
 		DDD78B011B9D732A009D779E /* UIView+XIB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XIB.m"; sourceTree = "<group>"; };
 		DDD78B031B9D757D009D779E /* ABCellCustomStyleMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ABCellCustomStyleMenuView.xib; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 		DD8B09041B9D6FAA007C8187 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DD9B6EC51BB9A5490091629D /* DataSource.plist */,
 				DD8B09051B9D6FAA007C8187 /* Info.plist */,
 				DD8B09061B9D6FAA007C8187 /* main.m */,
 			);
@@ -281,6 +284,7 @@
 				DDD78B0A1B9D757D009D779E /* ABCellMailStyleMenuView.xib in Resources */,
 				DD8B09151B9D6FAA007C8187 /* LaunchScreen.xib in Resources */,
 				DD8B09121B9D6FAA007C8187 /* Images.xcassets in Resources */,
+				DD9B6EC61BB9A5490091629D /* DataSource.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
