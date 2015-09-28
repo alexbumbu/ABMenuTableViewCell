@@ -14,7 +14,7 @@
     IBOutlet UIButton *moreButton;
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib {    
     [super awakeFromNib];
 }
 
