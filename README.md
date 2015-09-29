@@ -1,5 +1,7 @@
 # ABMenuTableViewCell
 
+**Fully compatible with iOS 9**
+
 Highly customizable, yet simple to use, solution for UITableViewCell right menu, shown by 'swipe to delete' gesture.
 
 **Mail App Styled Menu - show & hide example:**
@@ -22,7 +24,7 @@ The advantage of using custom menus is that you're not stuck with Apple style bu
 
 ## Integration
 
-* Install via cocoapods (just add ```pod 'ABMenuTableViewCell', '~> 1.0'``` to your Podfile), or clone this repository and drag the content of ABMenuTableViewCell folder to your project.  
+* Install via cocoapods (just add ```pod 'ABMenuTableViewCell', '~> 2.0'``` to your Podfile), or clone this repository and drag the content of ABMenuTableViewCell folder to your project.  
 * To use you just need to replace UITableViewCell with ABMenuTableViewCell and assign your custom menu view to rightMenuView property and you're ready to go! You can take a look at the following snippet for details.
 
 ```objective-c
@@ -47,7 +49,7 @@ The advantage of using custom menus is that you're not stuck with Apple style bu
 
 ## Compatibility
 
-* iOS 7 and iOS 8
+* iOS 7.x or newer
 
 ## Credits
 
