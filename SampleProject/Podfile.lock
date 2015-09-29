@@ -1,10 +1,13 @@
 PODS:
   - ABDataSourceController (1.0.1)
+  - SmudgeKit (0.1.2)
 
 DEPENDENCIES:
   - ABDataSourceController (~> 1.0)
+  - SmudgeKit
 
 SPEC CHECKSUMS:
   ABDataSourceController: eeea6521b0591c63715bd93db1586c7eecfaf790
+  SmudgeKit: d605782fc87271803b32c3fac6e9d6a2963f6ee8
 
 COCOAPODS: 0.36.3
