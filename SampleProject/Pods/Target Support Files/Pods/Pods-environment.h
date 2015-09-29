@@ -12,3 +12,9 @@
 #define COCOAPODS_VERSION_MINOR_ABDataSourceController 0
 #define COCOAPODS_VERSION_PATCH_ABDataSourceController 1
 
+// SmudgeKit
+#define COCOAPODS_POD_AVAILABLE_SmudgeKit
+#define COCOAPODS_VERSION_MAJOR_SmudgeKit 0
+#define COCOAPODS_VERSION_MINOR_SmudgeKit 1
+#define COCOAPODS_VERSION_PATCH_SmudgeKit 2
+

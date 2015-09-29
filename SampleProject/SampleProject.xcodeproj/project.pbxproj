@@ -15,7 +15,7 @@
 		DD8B09121B9D6FAA007C8187 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD8B09111B9D6FAA007C8187 /* Images.xcassets */; };
 		DD8B09151B9D6FAA007C8187 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD8B09131B9D6FAA007C8187 /* LaunchScreen.xib */; };
 		DD8B09211B9D6FAA007C8187 /* SampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8B09201B9D6FAA007C8187 /* SampleProjectTests.m */; };
-		DD9B6EC61BB9A5490091629D /* DataSource.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD9B6EC51BB9A5490091629D /* DataSource.plist */; settings = {ASSET_TAGS = (); }; };
+		DD9B6EC61BB9A5490091629D /* DataSource.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD9B6EC51BB9A5490091629D /* DataSource.plist */; };
 		DDD78B021B9D732A009D779E /* UIView+XIB.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD78B011B9D732A009D779E /* UIView+XIB.m */; };
 		DDD78B091B9D757D009D779E /* ABCellCustomStyleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD78B031B9D757D009D779E /* ABCellCustomStyleMenuView.xib */; };
 		DDD78B0A1B9D757D009D779E /* ABCellMailStyleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD78B041B9D757D009D779E /* ABCellMailStyleMenuView.xib */; };
@@ -38,6 +38,7 @@
 		338A62F79E49041174C62F7D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A165A52D653202A7694A92CD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B93F7BB346B823C4C1E81513 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD1DCA331BBA64E400403CB7 /* Options.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Options.h; sourceTree = "<group>"; };
 		DD8B09011B9D6FAA007C8187 /* SampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD8B09051B9D6FAA007C8187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD8B09061B9D6FAA007C8187 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -125,6 +126,7 @@
 			children = (
 				DD8B09081B9D6FAA007C8187 /* AppDelegate.h */,
 				DD8B09091B9D6FAA007C8187 /* AppDelegate.m */,
+				DD1DCA331BBA64E400403CB7 /* Options.h */,
 				DDD78B101B9D7647009D779E /* ABMenuTableViewCell */,
 				DDD78AFE1B9D72F6009D779E /* Extensions */,
 				DDD78AFF1B9D72FE009D779E /* UserInterface */,

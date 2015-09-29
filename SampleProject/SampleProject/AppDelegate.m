@@ -7,6 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "Options.h"
+
+#ifdef PRESENTATION
+#import <SmudgeKit/SmudgyWindow.h>
+#endif
 
 @interface AppDelegate ()
 
@@ -14,6 +19,14 @@
 
 @implementation AppDelegate
 
+#ifdef PRESENTATION
+- (UIWindow *)window {
+    if (!_window) {
+        _window = [[SmudgyWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    }
+    return _window;
+}
+#endif
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
