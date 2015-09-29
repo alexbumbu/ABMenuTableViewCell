@@ -57,17 +57,6 @@ static CGFloat kAnimationDuration = .26;
     [self commonInit];
 }
 
-- (void)willMoveToSuperview:(UIView *)newSuperview {
-    [super willMoveToSuperview:newSuperview];
-    
-    if (newSuperview) {
-        // content view frame is different before moving to superview, so it's critical to get it right
-        if (_rightMenuView) {
-            _rightMenuView.frame = CGRectMake(CGRectGetWidth(self.contentView.frame), .0, .0, CGRectGetHeight(self.contentView.frame));
-        }
-    }
-}
-
 - (void)didMoveToSuperview {
     [super didMoveToSuperview];
     
@@ -121,6 +110,14 @@ static CGFloat kAnimationDuration = .26;
     [super prepareForReuse];
     
     self.rightMenuView = nil;
+}
+
+- (void)layoutSubviews {
+    if (self.menuState == ABMenuStateHidden && _rightMenuView) {
+        _rightMenuView.frame = CGRectMake(CGRectGetWidth(self.contentView.frame), .0, .0, CGRectGetHeight(self.contentView.frame));
+    }
+    
+    [super layoutSubviews];
 }
 
 - (void)setRightMenuView:(UIView *)rightMenuView {
