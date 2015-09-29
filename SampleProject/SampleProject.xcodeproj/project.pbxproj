@@ -22,6 +22,7 @@
 		DDD78B0B1B9D757D009D779E /* ABCellMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD78B061B9D757D009D779E /* ABCellMenuView.m */; };
 		DDD78B0C1B9D757D009D779E /* MainDataSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD78B081B9D757D009D779E /* MainDataSourceController.m */; };
 		DDD78B131B9D7647009D779E /* ABMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD78B121B9D7647009D779E /* ABMenuTableViewCell.m */; };
+		DDE29C451BBB008E000EB816 /* ABMenuTableViewCell.podspec in Resources */ = {isa = PBXBuildFile; fileRef = DDE29C441BBB008E000EB816 /* ABMenuTableViewCell.podspec */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		DDD78B081B9D757D009D779E /* MainDataSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainDataSourceController.m; sourceTree = "<group>"; };
 		DDD78B111B9D7647009D779E /* ABMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABMenuTableViewCell.h; sourceTree = "<group>"; };
 		DDD78B121B9D7647009D779E /* ABMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABMenuTableViewCell.m; sourceTree = "<group>"; };
+		DDE29C441BBB008E000EB816 /* ABMenuTableViewCell.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ABMenuTableViewCell.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		DD8B08F81B9D6FAA007C8187 = {
 			isa = PBXGroup;
 			children = (
+				DDE29C441BBB008E000EB816 /* ABMenuTableViewCell.podspec */,
 				DD8B09031B9D6FAA007C8187 /* SampleProject */,
 				DD8B091D1B9D6FAA007C8187 /* SampleProjectTests */,
 				DD8B09021B9D6FAA007C8187 /* Products */,
@@ -284,6 +287,7 @@
 				DD8B09101B9D6FAA007C8187 /* Main.storyboard in Resources */,
 				DDD78B091B9D757D009D779E /* ABCellCustomStyleMenuView.xib in Resources */,
 				DDD78B0A1B9D757D009D779E /* ABCellMailStyleMenuView.xib in Resources */,
+				DDE29C451BBB008E000EB816 /* ABMenuTableViewCell.podspec in Resources */,
 				DD8B09151B9D6FAA007C8187 /* LaunchScreen.xib in Resources */,
 				DD8B09121B9D6FAA007C8187 /* Images.xcassets in Resources */,
 				DD9B6EC61BB9A5490091629D /* DataSource.plist in Resources */,
