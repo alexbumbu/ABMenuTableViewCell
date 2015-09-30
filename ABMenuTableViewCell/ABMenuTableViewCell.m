@@ -52,7 +52,7 @@ static CGFloat kAnimationDuration = .26;
     return self;
 }
 
-- (void) awakeFromNib {
+- (void)awakeFromNib {
     [super awakeFromNib];
     [self commonInit];
 }
@@ -68,6 +68,16 @@ static CGFloat kAnimationDuration = .26;
     }
     
     self.parentTableView = (UITableView *)view;
+}
+
+- (void)willTransitionToState:(UITableViewCellStateMask)state {
+    if (state == UITableViewCellStateShowingEditControlMask) {
+        if (self.menuState == ABMenuStateShown || self.menuState == ABMenuStateShowing) {
+            [self updateMenuView:ABMenuUpdateHideAction animated:YES];
+        }
+    }
+    
+    [super willTransitionToState:state];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -144,6 +154,10 @@ static CGFloat kAnimationDuration = .26;
     if (gestureRecognizer == _swipeGesture) {
         // prevent swipeGesture before highlight animation completes
         if (self.ongoingSelection)
+            return NO;
+        
+        // prevent swipeGesture when editing control is shown
+        if (self.editing)
             return NO;
         
         // enable only horizontal gesture
