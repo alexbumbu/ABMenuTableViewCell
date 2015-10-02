@@ -47,9 +47,11 @@ The advantage of using custom menus is that you're not stuck with Apple style bu
 }
 ```
 
-## Compatibility
+## Requirements
 
 * iOS 7.x or newer
+* ARC
+* Xcode 6.x
 
 ## Credits
 
