@@ -8,6 +8,6 @@ Pod::Spec.new do |s|
   s.author       = {"Alex Bumbu" => "https://github.com/alexbumbu"}
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/alexbumbu/ABMenuTableViewCell.git", :tag => "2.0.0" }
-  s.source_files  = "ABMenuTableViewCell"
+  s.source_files = "ABMenuTableViewCell"
   s.requires_arc = true
 end

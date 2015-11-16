@@ -11,7 +11,11 @@
 
 #import "MainViewController.h"
 #import "ABCellMenuView.h"
+#import "CustomMenuTableViewCell.h"
 
+
+static NSString *menuCellIdentifier = @"Default Cell";
+static NSString *customCellIdentifier = @"Custom Cell";
 
 @interface MainDataSourceController () <ABCellMenuViewDelegate>
 
@@ -34,7 +38,7 @@
 #pragma mark UITableViewDataSource Methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0 * (((MainViewController *)self.viewController).segmentedControl.selectedSegmentIndex + 1);
+    return 44.0 * (self.menuPosition + 1);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -42,19 +46,24 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *identifier = @"ABMenuTableViewCell";
+    ABMenuTableViewCell *cell = nil;
     
-    ABMenuTableViewCell *cell = (ABMenuTableViewCell*)[tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[ABMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+    switch (self.menuPosition) {
+        case 0: {
+            cell = [self menuCellAtIndexPath:indexPath];
+            break;
+        }
+        case 1: {
+            cell = [self customCellAtIndexPath:indexPath];
+            break;
+        }
+            
+        default:
+            break;
     }
-    
-    cell.textLabel.text = [_dataSource objectAtIndex:indexPath.row];
-    cell.detailTextLabel.textColor = [UIColor darkGrayColor];
-    cell.detailTextLabel.text = @"swipe to show custom menu";
-    
+
     // custom menu view
-    NSString *nibName = (((MainViewController *)self.viewController).segmentedControl.selectedSegmentIndex == 0)? @"ABCellMailStyleMenuView" : @"ABCellCustomStyleMenuView";
+    NSString *nibName = (self.menuPosition == 0)? @"ABCellMailStyleMenuView" : @"ABCellCustomStyleMenuView";
     ABCellMenuView *menuView = [ABCellMenuView initWithNib:nibName bundle:nil];
     menuView.delegate = self;
     menuView.indexPath = indexPath;
@@ -62,6 +71,31 @@
         
     return cell;
 }
+
+- (ABMenuTableViewCell*)menuCellAtIndexPath:(NSIndexPath*)indexPath {
+    ABMenuTableViewCell *cell = (ABMenuTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:menuCellIdentifier];
+    cell.textLabel.text = [_dataSource objectAtIndex:indexPath.row];
+    cell.detailTextLabel.textColor = [UIColor darkGrayColor];
+    cell.detailTextLabel.text = @"swipe to show custom menu";
+    
+    return cell;
+}
+
+- (CustomMenuTableViewCell*)customCellAtIndexPath:(NSIndexPath*)indexPath {
+    // prepare the attributed string
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[_dataSource objectAtIndex:indexPath.row]
+                                                                                attributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
+    NSAttributedString *detailsAttrStr = [[NSMutableAttributedString alloc] initWithString:@"\nswipe to show custom menu"
+                                                                                attributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:11.0]}];
+    [attrStr appendAttributedString:detailsAttrStr];
+    
+    // setup the cell
+    CustomMenuTableViewCell *cell = (CustomMenuTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:customCellIdentifier];
+    cell.mainLabel.attributedText = attrStr;
+    
+    return cell;
+}
+
 //
 //- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 //    return YES;
@@ -117,6 +151,10 @@
 - (void)loadDataSource {
     NSString *dataSourcePath = [[NSBundle mainBundle] pathForResource:@"DataSource" ofType:@"plist"];
     _dataSource = [[NSMutableArray alloc] initWithContentsOfFile:dataSourcePath];
+}
+
+- (NSInteger)menuPosition {
+    return ((MainViewController *)self.viewController).segmentedControl.selectedSegmentIndex;
 }
 
 @end
