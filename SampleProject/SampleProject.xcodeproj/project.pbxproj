@@ -18,8 +18,7 @@
 		DD8B09211B9D6FAA007C8187 /* SampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8B09201B9D6FAA007C8187 /* SampleProjectTests.m */; };
 		DD9B6EC61BB9A5490091629D /* DataSource.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD9B6EC51BB9A5490091629D /* DataSource.plist */; };
 		DDAF09641BBEAC8800C886E1 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DDAF09631BBEAC8800C886E1 /* LICENSE */; };
-		DDAF09661BBEAC9100C886E1 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = DDAF09651BBEAC9100C886E1 /* README.md */; };
-		DDD118AD1BFE253D00761743 /* UITableView+MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD118AC1BFE253D00761743 /* UITableView+MenuCell.m */; };
+		DDD118AD1BFE253D00761743 /* UITableView+VisibleMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD118AC1BFE253D00761743 /* UITableView+VisibleMenuCell.m */; };
 		DDD78B021B9D732A009D779E /* UIView+XIB.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD78B011B9D732A009D779E /* UIView+XIB.m */; };
 		DDD78B091B9D757D009D779E /* ABCellCustomStyleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD78B031B9D757D009D779E /* ABCellCustomStyleMenuView.xib */; };
 		DDD78B0A1B9D757D009D779E /* ABCellMailStyleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD78B041B9D757D009D779E /* ABCellMailStyleMenuView.xib */; };
@@ -62,8 +61,8 @@
 		DD9B6EC51BB9A5490091629D /* DataSource.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DataSource.plist; sourceTree = "<group>"; };
 		DDAF09631BBEAC8800C886E1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = "<group>"; };
 		DDAF09651BBEAC9100C886E1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
-		DDD118AB1BFE253D00761743 /* UITableView+MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+MenuCell.h"; sourceTree = "<group>"; };
-		DDD118AC1BFE253D00761743 /* UITableView+MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+MenuCell.m"; sourceTree = "<group>"; };
+		DDD118AB1BFE253D00761743 /* UITableView+VisibleMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+VisibleMenuCell.h"; sourceTree = "<group>"; };
+		DDD118AC1BFE253D00761743 /* UITableView+VisibleMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+VisibleMenuCell.m"; sourceTree = "<group>"; };
 		DDD78B001B9D732A009D779E /* UIView+XIB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XIB.h"; sourceTree = "<group>"; };
 		DDD78B011B9D732A009D779E /* UIView+XIB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XIB.m"; sourceTree = "<group>"; };
 		DDD78B031B9D757D009D779E /* ABCellCustomStyleMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ABCellCustomStyleMenuView.xib; sourceTree = "<group>"; };
@@ -219,8 +218,8 @@
 			children = (
 				DDD78B111B9D7647009D779E /* ABMenuTableViewCell.h */,
 				DDD78B121B9D7647009D779E /* ABMenuTableViewCell.m */,
-				DDD118AB1BFE253D00761743 /* UITableView+MenuCell.h */,
-				DDD118AC1BFE253D00761743 /* UITableView+MenuCell.m */,
+				DDD118AB1BFE253D00761743 /* UITableView+VisibleMenuCell.h */,
+				DDD118AC1BFE253D00761743 /* UITableView+VisibleMenuCell.m */,
 			);
 			name = ABMenuTableViewCell;
 			path = ../../ABMenuTableViewCell;
@@ -272,7 +271,7 @@
 		DD8B08F91B9D6FAA007C8187 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Alex Bumbu";
 				TargetAttributes = {
 					DD8B09001B9D6FAA007C8187 = {
@@ -366,7 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDD118AD1BFE253D00761743 /* UITableView+MenuCell.m in Sources */,
+				DDD118AD1BFE253D00761743 /* UITableView+VisibleMenuCell.m in Sources */,
 				DD8B090D1B9D6FAA007C8187 /* MainViewController.m in Sources */,
 				DDD78B131B9D7647009D779E /* ABMenuTableViewCell.m in Sources */,
 				DD8B090A1B9D6FAA007C8187 /* AppDelegate.m in Sources */,
@@ -374,7 +373,6 @@
 				DD8735971BFA58D6006E7367 /* CustomMenuTableViewCell.m in Sources */,
 				DDD78B0C1B9D757D009D779E /* MainDataSourceController.m in Sources */,
 				DDD78B021B9D732A009D779E /* UIView+XIB.m in Sources */,
-				DDAF09661BBEAC9100C886E1 /* README.md in Sources */,
 				DD8B09071B9D6FAA007C8187 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,6 +436,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -506,6 +505,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SampleProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alexbumbu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -517,6 +517,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SampleProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alexbumbu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -535,6 +536,7 @@
 				);
 				INFOPLIST_FILE = SampleProjectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alexbumbu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SampleProject.app/SampleProject";
 			};
@@ -550,6 +552,7 @@
 				);
 				INFOPLIST_FILE = SampleProjectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alexbumbu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SampleProject.app/SampleProject";
 			};
