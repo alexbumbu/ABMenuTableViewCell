@@ -84,16 +84,16 @@ static CGFloat kAnimationDuration = .26;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     // hide menu if presented
     ABMenuTableViewCell *cell = nil;
-    if (self.parentTableView.shownMenuCell) {
+    if (self.parentTableView.visibleMenuCell) {
         if (selected && (self.menuState == ABMenuStateShowing || self.menuState == ABMenuStateShown)) {
             cell = self;
         }
         else {
-            cell = self.parentTableView.shownMenuCell;
+            cell = self.parentTableView.visibleMenuCell;
         }
         
         [cell updateMenuView:ABMenuUpdateHideAction animated:YES];
-        self.parentTableView.shownMenuCell = nil;
+        self.parentTableView.visibleMenuCell = nil;
         
         return;
     }
@@ -117,7 +117,7 @@ static CGFloat kAnimationDuration = .26;
         return;
     
     // prevent highlighting when menu is on screen
-    if (self.parentTableView.shownMenuCell)
+    if (self.parentTableView.visibleMenuCell)
         return;
     
     if (self.menuState == ABMenuStateShowing || self.menuState == ABMenuStateShown)
@@ -176,9 +176,9 @@ static CGFloat kAnimationDuration = .26;
             return NO;
         
         // make sure to update cells and hide any visible menu
-        if (self.parentTableView.shownMenuCell) {
-            [self.parentTableView.shownMenuCell updateMenuView:ABMenuUpdateHideAction animated:YES];
-            self.parentTableView.shownMenuCell = nil;
+        if (self.parentTableView.visibleMenuCell) {
+            [self.parentTableView.visibleMenuCell updateMenuView:ABMenuUpdateHideAction animated:YES];
+            self.parentTableView.visibleMenuCell = nil;
             
             // check sipe direction & allow only swipe to close gesture
             if (velocity.x < 0)
@@ -270,7 +270,7 @@ static CGFloat kAnimationDuration = .26;
             // update menu state
             if (direction == ABMenuUpdateShowAction) {
                 self.menuState = ABMenuStateShown;
-                self.parentTableView.shownMenuCell = self;
+                self.parentTableView.visibleMenuCell = self;
             }
             else {
                 self.menuState = ABMenuStateHidden;

@@ -11,14 +11,14 @@
 
 @implementation UITableView (MenuCell)
 
-@dynamic shownMenuCell;
+@dynamic visibleMenuCell;
 
-- (void)setShownMenuCell:(ABMenuTableViewCell *)shownMenuCell{
-    objc_setAssociatedObject(self, @selector(shownMenuCell), shownMenuCell, OBJC_ASSOCIATION_ASSIGN);
+- (void)setVisibleMenuCell:(ABMenuTableViewCell *)visibleMenuCell {
+    objc_setAssociatedObject(self, @selector(visibleMenuCell), visibleMenuCell, OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (ABMenuTableViewCell *)shownMenuCell {
-    return objc_getAssociatedObject(self, @selector(shownMenuCell));
+- (ABMenuTableViewCell *)visibleMenuCell {
+    return objc_getAssociatedObject(self, @selector(visibleMenuCell));
 }
 
 @end

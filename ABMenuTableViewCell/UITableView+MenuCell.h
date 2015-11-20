@@ -12,6 +12,6 @@
 
 @interface UITableView (MenuCell)
 
-@property (nonatomic, assign) ABMenuTableViewCell *shownMenuCell;
+@property (nonatomic, assign) ABMenuTableViewCell *visibleMenuCell;
 
 @end
