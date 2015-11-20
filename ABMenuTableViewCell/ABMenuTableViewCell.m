@@ -7,6 +7,7 @@
 //
 
 #import "ABMenuTableViewCell.h"
+#import "UITableView+MenuCell.h"
 
 
 typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {
@@ -82,8 +83,17 @@ static CGFloat kAnimationDuration = .26;
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     // hide menu if presented
-    if (selected && (self.menuState == ABMenuStateShowing || self.menuState == ABMenuStateShown)) {
-        [self updateMenuView:ABMenuUpdateHideAction animated:YES];
+    ABMenuTableViewCell *cell = nil;
+    if (self.parentTableView.shownMenuCell) {
+        if (selected && (self.menuState == ABMenuStateShowing || self.menuState == ABMenuStateShown)) {
+            cell = self;
+        }
+        else {
+            cell = self.parentTableView.shownMenuCell;
+        }
+        
+        [cell updateMenuView:ABMenuUpdateHideAction animated:YES];
+        self.parentTableView.shownMenuCell = nil;
         
         return;
     }
@@ -107,6 +117,9 @@ static CGFloat kAnimationDuration = .26;
         return;
     
     // prevent highlighting when menu is on screen
+    if (self.parentTableView.shownMenuCell)
+        return;
+    
     if (self.menuState == ABMenuStateShowing || self.menuState == ABMenuStateShown)
         return;
     
@@ -152,6 +165,8 @@ static CGFloat kAnimationDuration = .26;
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer == _swipeGesture) {
+        CGPoint velocity = [(UIPanGestureRecognizer*)gestureRecognizer velocityInView:self];
+        
         // prevent swipeGesture before highlight animation completes
         if (self.ongoingSelection)
             return NO;
@@ -160,8 +175,17 @@ static CGFloat kAnimationDuration = .26;
         if (self.editing)
             return NO;
         
+        // make sure to update cells and hide any visible menu
+        if (self.parentTableView.shownMenuCell) {
+            [self.parentTableView.shownMenuCell updateMenuView:ABMenuUpdateHideAction animated:YES];
+            self.parentTableView.shownMenuCell = nil;
+            
+            // check sipe direction & allow only swipe to close gesture
+            if (velocity.x < 0)
+                return NO;
+        }
+        
         // enable only horizontal gesture
-        CGPoint velocity = [(UIPanGestureRecognizer*)gestureRecognizer velocityInView:self];
         BOOL shouldBegin = fabs(velocity.x) > fabs(velocity.y);
         
         return shouldBegin;
@@ -246,6 +270,7 @@ static CGFloat kAnimationDuration = .26;
             // update menu state
             if (direction == ABMenuUpdateShowAction) {
                 self.menuState = ABMenuStateShown;
+                self.parentTableView.shownMenuCell = self;
             }
             else {
                 self.menuState = ABMenuStateHidden;
