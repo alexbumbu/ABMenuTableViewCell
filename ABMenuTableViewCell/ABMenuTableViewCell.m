@@ -7,7 +7,7 @@
 //
 
 #import "ABMenuTableViewCell.h"
-#import "UITableView+MenuCell.h"
+#import "UITableView+VisibleMenuCell.h"
 
 
 typedef NS_ENUM(NSInteger, ABMenuUpdateAction) {

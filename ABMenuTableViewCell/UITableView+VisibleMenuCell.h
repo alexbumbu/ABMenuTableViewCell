@@ -1,5 +1,5 @@
 //
-//  UITableView+MenuCell.h
+//  UITableView+VisibleMenuCell.h
 //  SampleProject
 //
 //  Created by Alex Bumbu on 19/11/15.
@@ -10,7 +10,7 @@
 
 @class ABMenuTableViewCell;
 
-@interface UITableView (MenuCell)
+@interface UITableView (VisibleMenuCell)
 
 @property (nonatomic, assign) ABMenuTableViewCell *visibleMenuCell;
 

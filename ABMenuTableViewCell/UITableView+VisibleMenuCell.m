@@ -1,15 +1,15 @@
 //
-//  UITableView+MenuCell.m
+//  UITableView+VisibleMenuCell.m
 //  SampleProject
 //
 //  Created by Alex Bumbu on 19/11/15.
 //  Copyright © 2015 Alex Bumbu. All rights reserved.
 //
 
-#import "UITableView+MenuCell.h"
+#import "UITableView+VisibleMenuCell.h"
 #import <objc/objc-runtime.h>
 
-@implementation UITableView (MenuCell)
+@implementation UITableView (VisibleMenuCell)
 
 @dynamic visibleMenuCell;
 
