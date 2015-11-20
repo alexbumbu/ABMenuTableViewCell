@@ -81,21 +81,6 @@ static NSString *customCellIdentifier = @"Custom Cell";
     return cell;
 }
 
-- (CustomMenuTableViewCell*)customCellAtIndexPath:(NSIndexPath*)indexPath {
-    // prepare the attributed string
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[_dataSource objectAtIndex:indexPath.row]
-                                                                                attributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
-    NSAttributedString *detailsAttrStr = [[NSMutableAttributedString alloc] initWithString:@"\nswipe to show custom menu"
-                                                                                attributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:11.0]}];
-    [attrStr appendAttributedString:detailsAttrStr];
-    
-    // setup the cell
-    CustomMenuTableViewCell *cell = (CustomMenuTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:customCellIdentifier];
-    cell.mainLabel.attributedText = attrStr;
-    
-    return cell;
-}
-
 //
 //- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 //    return YES;
@@ -155,6 +140,21 @@ static NSString *customCellIdentifier = @"Custom Cell";
 
 - (NSInteger)menuPosition {
     return ((MainViewController *)self.viewController).segmentedControl.selectedSegmentIndex;
+}
+
+- (CustomMenuTableViewCell*)customCellAtIndexPath:(NSIndexPath*)indexPath {
+    // prepare the attributed string
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[_dataSource objectAtIndex:indexPath.row]
+                                                                                attributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
+    NSAttributedString *detailsAttrStr = [[NSMutableAttributedString alloc] initWithString:@"\nswipe to show custom menu"
+                                                                                attributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:11.0]}];
+    [attrStr appendAttributedString:detailsAttrStr];
+    
+    // setup the cell
+    CustomMenuTableViewCell *cell = (CustomMenuTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:customCellIdentifier];
+    cell.mainLabel.attributedText = attrStr;
+    
+    return cell;
 }
 
 @end

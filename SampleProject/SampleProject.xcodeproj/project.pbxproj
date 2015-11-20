@@ -19,6 +19,7 @@
 		DD9B6EC61BB9A5490091629D /* DataSource.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD9B6EC51BB9A5490091629D /* DataSource.plist */; };
 		DDAF09641BBEAC8800C886E1 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DDAF09631BBEAC8800C886E1 /* LICENSE */; };
 		DDAF09661BBEAC9100C886E1 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = DDAF09651BBEAC9100C886E1 /* README.md */; };
+		DDD118AD1BFE253D00761743 /* UITableView+MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD118AC1BFE253D00761743 /* UITableView+MenuCell.m */; };
 		DDD78B021B9D732A009D779E /* UIView+XIB.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD78B011B9D732A009D779E /* UIView+XIB.m */; };
 		DDD78B091B9D757D009D779E /* ABCellCustomStyleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD78B031B9D757D009D779E /* ABCellCustomStyleMenuView.xib */; };
 		DDD78B0A1B9D757D009D779E /* ABCellMailStyleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD78B041B9D757D009D779E /* ABCellMailStyleMenuView.xib */; };
@@ -61,6 +62,8 @@
 		DD9B6EC51BB9A5490091629D /* DataSource.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DataSource.plist; sourceTree = "<group>"; };
 		DDAF09631BBEAC8800C886E1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = "<group>"; };
 		DDAF09651BBEAC9100C886E1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
+		DDD118AB1BFE253D00761743 /* UITableView+MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+MenuCell.h"; sourceTree = "<group>"; };
+		DDD118AC1BFE253D00761743 /* UITableView+MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+MenuCell.m"; sourceTree = "<group>"; };
 		DDD78B001B9D732A009D779E /* UIView+XIB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XIB.h"; sourceTree = "<group>"; };
 		DDD78B011B9D732A009D779E /* UIView+XIB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XIB.m"; sourceTree = "<group>"; };
 		DDD78B031B9D757D009D779E /* ABCellCustomStyleMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ABCellCustomStyleMenuView.xib; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 			children = (
 				DDD78B111B9D7647009D779E /* ABMenuTableViewCell.h */,
 				DDD78B121B9D7647009D779E /* ABMenuTableViewCell.m */,
+				DDD118AB1BFE253D00761743 /* UITableView+MenuCell.h */,
+				DDD118AC1BFE253D00761743 /* UITableView+MenuCell.m */,
 			);
 			name = ABMenuTableViewCell;
 			path = ../../ABMenuTableViewCell;
@@ -361,6 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDD118AD1BFE253D00761743 /* UITableView+MenuCell.m in Sources */,
 				DD8B090D1B9D6FAA007C8187 /* MainViewController.m in Sources */,
 				DDD78B131B9D7647009D779E /* ABMenuTableViewCell.m in Sources */,
 				DD8B090A1B9D6FAA007C8187 /* AppDelegate.m in Sources */,
