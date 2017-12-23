@@ -190,12 +190,13 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
         
         // make sure to update cells and hide any visible menu
         if (self.parentTableView.visibleMenuCell) {
+            // check swipe direction & allow only swipe to close gesture
+            if (self.parentTableView.visibleMenuCell == self && velocity.x < 0) {
+                return NO;
+            }
+            
             [self.parentTableView.visibleMenuCell updateMenuView:ABMenuUpdateHideAction animated:YES];
             self.parentTableView.visibleMenuCell = nil;
-            
-            // check sipe direction & allow only swipe to close gesture
-            if (velocity.x < 0)
-                return NO;
         }
         
         // enable only horizontal gesture
@@ -366,7 +367,7 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
     return direction;
 }
 
-- (void)updateMenuView:(ABMenuUpdateAction)action delta:(CGFloat)deltaX animated:(BOOL)animated completion: (void (^)())completionHandler {
+- (void)updateMenuView:(ABMenuUpdateAction)action delta:(CGFloat)deltaX animated:(BOOL)animated completion: (void (^)(void))completionHandler {
     CGFloat initialWidth = CGRectGetWidth(_rightMenuViewInitialFrame);
     
     // adjust deltaX so it doesn't get out of bounds
