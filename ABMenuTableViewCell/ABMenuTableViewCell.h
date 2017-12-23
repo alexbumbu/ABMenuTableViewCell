@@ -41,6 +41,13 @@
  
  @since v1.0.0
  */
-@property (nonatomic, assign) UIView *rightMenuView;
+@property (nonatomic, assign) UIView * _Nullable rightMenuView;
+
+/**
+ Returns whether the cell is currently showing the right menu view.
+ 
+ @since v2.0.1
+ */
+@property (nonatomic, readonly) BOOL showingRightMenu;
 
 @end
