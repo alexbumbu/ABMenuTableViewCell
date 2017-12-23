@@ -10,6 +10,7 @@
 #import "ABMenuTableViewCell.h"
 
 #import "MainViewController.h"
+#import "DetailsViewController.h"
 #import "ABCellMenuView.h"
 #import "CustomMenuTableViewCell.h"
 
@@ -91,8 +92,14 @@ static NSString *customCellIdentifier = @"Custom Cell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
 
+    ABMenuTableViewCell *cell = (ABMenuTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    if (cell.showingRightMenu) {
+        return;
+    }
+    
+    [self showDetailsForCell:cell];
+}
 
 #pragma mark ABCellMenuViewDelegate Methods
 
@@ -155,6 +162,10 @@ static NSString *customCellIdentifier = @"Custom Cell";
     cell.mainLabel.attributedText = attrStr;
     
     return cell;
+}
+
+- (void)showDetailsForCell:(ABMenuTableViewCell *)cell {
+    [_viewController performSegueWithIdentifier:showDetailsSegueIdentifier sender:cell.textLabel.text];
 }
 
 @end

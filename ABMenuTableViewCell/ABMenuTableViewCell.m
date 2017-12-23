@@ -22,7 +22,6 @@ typedef NS_ENUM(NSInteger, ABMenuState) {
     ABMenuStateHiding
 };
 
-
 static CGFloat const kSpringAnimationDuration = .6;
 static CGFloat const kAnimationDuration = .26;
 static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained through trial & error
@@ -32,7 +31,7 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
 
 @property (nonatomic, assign) UITableView *parentTableView;
 
-@property (nonatomic, assign) ABMenuState menuState;
+@property (nonatomic, assign) ABMenuState rightMenuState;
 @property (nonatomic, assign) CGPoint lastGestureLocation;
 @property (nonatomic, assign) CGPoint startGestureLocation;
 @property (nonatomic, assign) CGFloat prevDistance;
@@ -49,7 +48,7 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self commonInit]; 
+        [self commonInit];
     }
     
     return self;
@@ -75,7 +74,7 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
 
 - (void)willTransitionToState:(UITableViewCellStateMask)state {
     if (state == UITableViewCellStateShowingEditControlMask) {
-        if (self.menuState == ABMenuStateShown || self.menuState == ABMenuStateShowing) {
+        if (self.rightMenuState == ABMenuStateShown || self.rightMenuState == ABMenuStateShowing) {
             [self updateMenuView:ABMenuUpdateHideAction animated:YES];
         }
     }
@@ -87,7 +86,7 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
     // hide menu if presented
     ABMenuTableViewCell *cell = nil;
     if (self.parentTableView.visibleMenuCell) {
-        if (selected && (self.menuState == ABMenuStateShowing || self.menuState == ABMenuStateShown)) {
+        if (selected && (self.rightMenuState == ABMenuStateShowing || self.rightMenuState == ABMenuStateShown)) {
             cell = self;
         }
         else {
@@ -121,7 +120,7 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
     if (self.parentTableView.visibleMenuCell)
         return;
     
-    if (self.menuState == ABMenuStateShowing || self.menuState == ABMenuStateShown)
+    if (self.rightMenuState == ABMenuStateShowing || self.rightMenuState == ABMenuStateShown)
         return;
     
     if (highlighted)
@@ -137,7 +136,7 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
     
     // reset states
     self.ongoingSelection = NO;
-    self.menuState = ABMenuStateHidden;
+    self.rightMenuState = ABMenuStateHidden;
     self.prevDistance = .0;
     self.startGestureLocation = CGPointZero;
     
@@ -145,7 +144,7 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
 }
 
 - (void)layoutSubviews {
-    if (self.menuState == ABMenuStateHidden && _rightMenuView) {
+    if (self.rightMenuState == ABMenuStateHidden && _rightMenuView) {
         [self hideMenu];
     }
     
@@ -164,6 +163,10 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
         [self hideMenu];
         [self.contentView addSubview:_rightMenuView];
     }
+}
+
+- (BOOL)showingRightMenu {
+    return  self.rightMenuState != ABMenuStateHidden;
 }
 
 
@@ -224,10 +227,10 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
             
             // update menu state
             if (direction == ABMenuUpdateShowAction) {
-                self.menuState = ABMenuStateShowing;
+                self.rightMenuState = ABMenuStateShowing;
             }
             else {
-                self.menuState = ABMenuStateHiding;
+                self.rightMenuState = ABMenuStateHiding;
             }
             
             break;
@@ -238,14 +241,14 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
             
             // handle out of bounds case considering menuState and direction
             if (totalDistance <= .0) {
-                if (direction == ABMenuUpdateHideAction && self.menuState == ABMenuStateHidden)
+                if (direction == ABMenuUpdateHideAction && self.rightMenuState == ABMenuStateHidden)
                     totalDistance = .0;
                 
                 self.startGestureLocation = [gesture locationInView:self];
             }
             
             // update UI with distance since previous gesture state
-            [self updateMenuView:direction delta:fabs(totalDistance - self.prevDistance) animated:NO];
+            [self updateMenuView:direction delta:fabs(totalDistance - self.prevDistance) animated:NO completion:nil];
             
             self.prevDistance = totalDistance;
             
@@ -257,7 +260,7 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
         case UIGestureRecognizerStateEnded: {
             // calculate deltaX considering menuState and direction
             CGFloat deltaX = .0;
-            switch (self.menuState) {
+            switch (self.rightMenuState) {
                 case ABMenuStateShowing: {
                     deltaX = (direction == ABMenuUpdateShowAction? initialWidth : 0) - self.prevDistance;
                     break;
@@ -275,15 +278,15 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
             }
             
             // update UI
-            [self updateMenuView:direction delta:fabs(deltaX) animated:YES];
+            [self updateMenuView:direction delta:fabs(deltaX) animated:YES completion:nil];
             
             // update menu state
             if (direction == ABMenuUpdateShowAction) {
-                self.menuState = ABMenuStateShown;
+                self.rightMenuState = ABMenuStateShown;
                 self.parentTableView.visibleMenuCell = self;
             }
             else {
-                self.menuState = ABMenuStateHidden;
+                self.rightMenuState = ABMenuStateHidden;
             }
             
             break;
@@ -301,7 +304,7 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
 
 - (void)commonInit {
     self.ongoingSelection = NO;
-    self.menuState = ABMenuStateHidden;
+    self.rightMenuState = ABMenuStateHidden;
     self.prevDistance = .0;
     self.startGestureLocation = CGPointZero;
     
@@ -313,10 +316,10 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
 }
 
 - (void)resetLastGestureLocation {
-    if (self.menuState == ABMenuStateShown) {
+    if (self.rightMenuState == ABMenuStateShown) {
         self.lastGestureLocation = CGPointZero;
     }
-    else if (self.menuState == ABMenuStateHidden){
+    else if (self.rightMenuState == ABMenuStateHidden){
         self.lastGestureLocation = CGPointMake(CGRectGetWidth(self.frame), .0);
     }
 }
@@ -324,15 +327,23 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
 - (void)updateMenuView:(ABMenuUpdateAction)action animated:(BOOL)animated {
     CGFloat initialWidth = CGRectGetWidth(_rightMenuViewInitialFrame);
     
-    [self updateMenuView:action delta:initialWidth animated:animated];
-    
-    // update menu state
+    // update menu starting state
     if (action == ABMenuUpdateShowAction) {
-        self.menuState = ABMenuStateShown;
+        self.rightMenuState = ABMenuStateShowing;
     }
     else {
-        self.menuState = ABMenuStateHidden;
+        self.rightMenuState = ABMenuStateHiding;
     }
+    
+    [self updateMenuView:action delta:initialWidth animated:animated completion:^{
+        // update menu final state
+        if (action == ABMenuUpdateShowAction) {
+            self.rightMenuState = ABMenuStateShown;
+        }
+        else {
+            self.rightMenuState = ABMenuStateHidden;
+        }
+    }];
 }
 
 - (ABMenuUpdateAction)actionForGesture:(UIPanGestureRecognizer *)gesture {
@@ -355,7 +366,7 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
     return direction;
 }
 
-- (void)updateMenuView:(ABMenuUpdateAction)action delta:(CGFloat)deltaX animated:(BOOL)animated {
+- (void)updateMenuView:(ABMenuUpdateAction)action delta:(CGFloat)deltaX animated:(BOOL)animated completion: (void (^)())completionHandler {
     CGFloat initialWidth = CGRectGetWidth(_rightMenuViewInitialFrame);
     
     // adjust deltaX so it doesn't get out of bounds
@@ -390,6 +401,11 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
                          _rightMenuView.frame = menuNewFrame;
                          
                          [self layoutIfNeeded];
+                     }
+                     completion:^(BOOL finished) {
+                         if (completionHandler) {
+                             completionHandler();
+                         }
                      }];
     
     [UIView animateWithDuration:(animated? kSpringAnimationDuration : .0)
@@ -403,7 +419,11 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
                                                         CGRectGetWidth(subview.frame), CGRectGetHeight(subview.frame));                             
                          }
                      }
-                     completion:nil];
+                     completion:^(BOOL finished) {
+                         if (completionHandler) {
+                             completionHandler();
+                         }
+                     }];
 }
 
 - (void)hideMenu {
