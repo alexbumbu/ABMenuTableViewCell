@@ -23,8 +23,10 @@ typedef NS_ENUM(NSInteger, ABMenuState) {
 };
 
 
-static CGFloat kSpringAnimationDuration = .6;
-static CGFloat kAnimationDuration = .26;
+static CGFloat const kSpringAnimationDuration = .6;
+static CGFloat const kAnimationDuration = .26;
+static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained through trial & error
+
 
 @interface ABMenuTableViewCell ()
 
@@ -102,8 +104,7 @@ static CGFloat kAnimationDuration = .26;
     
     // prevent swipeGesture before highlight animation completes
     if (!selected) {
-#warning Workaround: 0.45s value is obtained through trial & error
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.45 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kHighlightAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.ongoingSelection = NO;
         });
     }
