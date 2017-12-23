@@ -132,12 +132,20 @@ static CGFloat kAnimationDuration = .26;
 - (void)prepareForReuse {
     [super prepareForReuse];
     
-    self.rightMenuView = nil;
+    [self hideMenu];
+    
+    // reset states
+    self.ongoingSelection = NO;
+    self.menuState = ABMenuStateHidden;
+    self.prevDistance = .0;
+    self.startGestureLocation = CGPointZero;
+    
+    [self resetLastGestureLocation];
 }
 
 - (void)layoutSubviews {
     if (self.menuState == ABMenuStateHidden && _rightMenuView) {
-        _rightMenuView.frame = CGRectMake(CGRectGetWidth(self.contentView.frame), .0, .0, CGRectGetHeight(self.contentView.frame));
+        [self hideMenu];
     }
     
     [super layoutSubviews];
@@ -151,7 +159,8 @@ static CGFloat kAnimationDuration = .26;
         // add new
         _rightMenuView = rightMenuView;
         _rightMenuViewInitialFrame = _rightMenuView.frame;
-        _rightMenuView.frame = CGRectMake(CGRectGetWidth(self.contentView.frame), .0, .0, CGRectGetHeight(self.contentView.frame));
+        
+        [self hideMenu];
         [self.contentView addSubview:_rightMenuView];
     }
 }
@@ -394,6 +403,10 @@ static CGFloat kAnimationDuration = .26;
                          }
                      }
                      completion:nil];
+}
+
+- (void)hideMenu {
+    _rightMenuView.frame = CGRectMake(CGRectGetWidth(self.contentView.frame), .0, .0, CGRectGetHeight(self.contentView.frame));
 }
 
 @end
