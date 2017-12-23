@@ -16,6 +16,7 @@
 		DD8B09121B9D6FAA007C8187 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD8B09111B9D6FAA007C8187 /* Images.xcassets */; };
 		DD8B09151B9D6FAA007C8187 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD8B09131B9D6FAA007C8187 /* LaunchScreen.xib */; };
 		DD8B09211B9D6FAA007C8187 /* SampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8B09201B9D6FAA007C8187 /* SampleProjectTests.m */; };
+		DD8FB7E41FEEB9AC00ACCF99 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8FB7E31FEEB9AC00ACCF99 /* DetailsViewController.m */; };
 		DD9B6EC61BB9A5490091629D /* DataSource.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD9B6EC51BB9A5490091629D /* DataSource.plist */; };
 		DDAF09641BBEAC8800C886E1 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DDAF09631BBEAC8800C886E1 /* LICENSE */; };
 		DDD118AD1BFE253D00761743 /* UITableView+VisibleMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD118AC1BFE253D00761743 /* UITableView+VisibleMenuCell.m */; };
@@ -58,6 +59,8 @@
 		DD8B091A1B9D6FAA007C8187 /* SampleProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD8B091F1B9D6FAA007C8187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD8B09201B9D6FAA007C8187 /* SampleProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleProjectTests.m; sourceTree = "<group>"; };
+		DD8FB7E21FEEB9AC00ACCF99 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		DD8FB7E31FEEB9AC00ACCF99 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		DD9B6EC51BB9A5490091629D /* DataSource.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DataSource.plist; sourceTree = "<group>"; };
 		DDAF09631BBEAC8800C886E1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = "<group>"; };
 		DDAF09651BBEAC9100C886E1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				DDD78B081B9D757D009D779E /* MainDataSourceController.m */,
 				DD8B090B1B9D6FAA007C8187 /* MainViewController.h */,
 				DD8B090C1B9D6FAA007C8187 /* MainViewController.m */,
+				DD8FB7E21FEEB9AC00ACCF99 /* DetailsViewController.h */,
+				DD8FB7E31FEEB9AC00ACCF99 /* DetailsViewController.m */,
 			);
 			name = UserInterface;
 			sourceTree = "<group>";
@@ -276,6 +281,7 @@
 				TargetAttributes = {
 					DD8B09001B9D6FAA007C8187 = {
 						CreatedOnToolsVersion = 6.4;
+						LastSwiftMigration = 0920;
 					};
 					DD8B09191B9D6FAA007C8187 = {
 						CreatedOnToolsVersion = 6.4;
@@ -366,6 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDD118AD1BFE253D00761743 /* UITableView+VisibleMenuCell.m in Sources */,
+				DD8FB7E41FEEB9AC00ACCF99 /* DetailsViewController.m in Sources */,
 				DD8B090D1B9D6FAA007C8187 /* MainViewController.m in Sources */,
 				DDD78B131B9D7647009D779E /* ABMenuTableViewCell.m in Sources */,
 				DD8B090A1B9D6FAA007C8187 /* AppDelegate.m in Sources */,
@@ -503,10 +510,13 @@
 			baseConfigurationReference = A165A52D653202A7694A92CD /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SampleProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alexbumbu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -515,10 +525,12 @@
 			baseConfigurationReference = 338A62F79E49041174C62F7D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SampleProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alexbumbu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

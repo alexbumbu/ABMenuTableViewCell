@@ -10,6 +10,7 @@
 #import "UITableView+DataSourceController.h"
 
 #import "MainDataSourceController.h"
+#import "DetailsViewController.h"
 
 
 @interface MainViewController ()
@@ -41,6 +42,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:showDetailsSegueIdentifier]) {
+        
+        DetailsViewController *detailsController = segue.destinationViewController;
+        detailsController.itemName = (NSString *)sender;
+    }
 }
 
 
