@@ -46,7 +46,7 @@
 /**
  Returns whether the cell is currently showing the right menu view.
  
- @since v2.0.1
+ @since v2.0.2
  */
 @property (nonatomic, readonly) BOOL showingRightMenu;
 
